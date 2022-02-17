@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./server/config/db');
 const dotenv = require('dotenv');
 const path = require('path');
+const cors = require('cors');
 
 const userRoutes = require('./server/routes/userRoutes');
 const chatRoutes = require('./server/routes/chatRoutes');
@@ -12,6 +13,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
@@ -21,15 +23,20 @@ app.use('/api/message', messageRoutes);
 
 const __dirname1 = path.resolve();
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname1, '/frontend/build')));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname1, '/frontend/build')));
 
-  app.get('*', (_, res) => res.sendFile(path.resolve(__dirname1, 'frontend', 'build', 'index.html')));
-} else {
-  app.get('/', (_, res) => {
-    res.send('API is running');
-  });
-}
+//   app.get('*', (_, res) => res.sendFile(path.resolve(__dirname1, 'frontend', 'build', 'index.html')));
+// } else {
+//   app.get('/', (_, res) => {
+//     res.send('API is running');
+//   });
+// }
+
+app.use(express.static(path.join(__dirname1, '/frontend/build')));
+app.get('*', (_, res) => {
+  res.sendFile(path.resolve(__dirname1, 'frontend', 'build', 'index.html'));
+});
 
 app.use(notFound);
 app.use(errorHandler);
