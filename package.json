@@ -4,8 +4,8 @@
   "description": "Chat messaging application",
   "main": "server/index.js",
   "scripts": {
-    "server": "nodemon server/index.js",
-    "start": "node server/index.js",
+    "server": "nodemon index.js",
+    "start": "node index.js",
     "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
