@@ -2,7 +2,7 @@
   "name": "rechat-chat-application",
   "version": "1.0.0",
   "description": "Chat messaging application",
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
